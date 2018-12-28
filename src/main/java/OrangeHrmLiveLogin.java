@@ -31,7 +31,7 @@ public class OrangeHrmLiveLogin {
     }
     @AfterMethod //run after every method
     public void closingBrowser(){
-       // driver.quit();
+       driver.quit();
     }
 
     @Test
@@ -53,21 +53,17 @@ public class OrangeHrmLiveLogin {
         enterText(By.id("user_name"),"Manojkshah"+date1);
         String userName = driver.findElement(By.id("user_name")).getAttribute("value");
         System.out.println(userName);
-        enterText(By.id("user_password"),"Mypass@123"+date1);
+        enterText(By.id("user_password"),"Mypass@12"); //please change the password adding one more digit to avoid relogin issue
         String password = driver.findElement(By.id("user_password")).getAttribute("value");
         System.out.println(password);
-        enterText(By.id("re_password"),"Mypass@123"+date1);
+        enterText(By.id("re_password"),"Mypass@12"); // change the password as above to match
         clickElementBy(By.id("btnSave"));
         clickElementBy(By.id("welcome"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Logout")));
         clickElementBy(By.linkText("Logout"));
-        // had to use thread.sleep due to new employee take time to update the database list to be able to login successfully
-        // you might get error invalid credential due to database does not update the new employee
-        Thread.sleep(3000);
         enterText(By.id("txtUsername"),userName);
         enterText(By.id("txtPassword"),password);
         clickElementBy(By.id("btnLogin"));
-
     }
 
 }
